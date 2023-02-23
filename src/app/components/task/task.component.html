@@ -1,0 +1,99 @@
+<container-element [ngSwitch]="displayMode">
+  <!-- View Mode -->
+  <div
+    *ngSwitchCase="'View'"
+    class="bg-slate-200 w-full rounded-md px-6 py-2 my-4 flex justify-between"
+  >
+    <div class="flex items-center gap-3">
+      <mat-icon
+        *ngIf="task?.enabled"
+        class="cursor-pointer"
+        aria-hidden="false"
+        aria-label="Update Task"
+        fontIcon="alarm"
+        (click)="task && onEdit(task)"
+      >
+      </mat-icon>
+      <span class="font-bold">{{ task?.name }}</span>
+    </div>
+
+    <div class="flex gap-3">
+      <mat-icon
+        class="cursor-pointer"
+        aria-hidden="false"
+        aria-label="Edit"
+        fontIcon="edit"
+        (click)="task && setDisplayMode('Edit')"
+      ></mat-icon>
+      <mat-icon
+        class="cursor-pointer"
+        aria-hidden="false"
+        aria-label="Delete"
+        fontIcon="delete"
+        (click)="task && setDisplayMode('Delete')"
+      >
+      </mat-icon>
+    </div>
+  </div>
+
+  <!-- Edit Mode -->
+  <div
+    *ngSwitchCase="'Edit'"
+    class="bg-green-600 text-white w-full rounded-md px-6 py-2 my-4 flex justify-between"
+  >
+    <div class="flex gap-4">
+      <div>
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name" />
+      </div>
+      <div>
+        <label for="enabled">Enabled: </label>
+        <input type="checkbox" id="enabled" name="enabled" />
+      </div>
+    </div>
+    <div class="flex gap-3">
+      <mat-icon
+        class="cursor-pointer"
+        aria-hidden="false"
+        aria-label="Update Task"
+        fontIcon="save"
+        (click)="task && onEdit(task)"
+      >
+      </mat-icon>
+      <mat-icon
+        class="cursor-pointer"
+        aria-hidden="false"
+        aria-label="Cancel"
+        fontIcon="close"
+        (click)="task && setDisplayMode('View')"
+      >
+      </mat-icon>
+    </div>
+  </div>
+
+  <!-- Delete Mode -->
+  <div
+    *ngSwitchCase="'Delete'"
+    class="bg-red-500 text-white w-full rounded-md px-6 py-2 my-4 flex justify-between"
+  >
+    <span class="font-bold">{{ task?.name }}</span>
+    <div class="flex gap-3">
+      <mat-icon
+        class="cursor-pointer"
+        aria-hidden="false"
+        aria-label="Update Task"
+        fontIcon="check"
+        (click)="task && onDelete(task)"
+      >
+      </mat-icon>
+      <mat-icon
+        class="cursor-pointer"
+        aria-hidden="false"
+        aria-label="Cancel"
+        fontIcon="close"
+        (click)="task && setDisplayMode('View')"
+      >
+      </mat-icon>
+    </div>
+  </div>
+</container-element>
